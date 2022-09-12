@@ -1,0 +1,26 @@
+name = "billing"
+compatibility_date = "2022-08-01"
+workers_dev = true
+
+kv_namespaces = []
+
+[site]
+bucket = "./public-dist"
+entry-point = "./src/index.ts"
+
+[build]
+command = "npm run build:worker"
+
+[build.upload]
+format = "modules"
+dir = "dist"
+main = "index.mjs"
+
+[miniflare]
+kv_persist = true
+cache_persist = true
+port = 8080
+watch = true
+
+[triggers]
+crons = ["*/1 * * * *"]
